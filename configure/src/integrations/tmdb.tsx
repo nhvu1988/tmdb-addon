@@ -46,7 +46,7 @@ export default function TMDB() {
       const response = await fetch(`/request_token?cache_buster=${uuid}`);
       if (!response.ok) throw new Error('Failed to get request token');
       
-      const requestToken = await response.text();
+      const requestToken = (await response.json()).request_token;
       const tmdbAuthUrl = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${window.location.href}`;
       window.location.href = tmdbAuthUrl;
     } catch (e) {
